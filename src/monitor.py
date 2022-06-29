@@ -16,7 +16,10 @@ def internet():
 
 if __name__ == '__main__':
     if not network():
-        with open('/data/archer-a9-uptime.log', 'a') as log:
+        with open('/data/connectivity.log', 'a') as log:
             log.write(f'{datetime.now()} - NETWORK OFFLINE\n')
     elif not internet():
+        with open('/data/connectivity.log', 'a') as log:
+            log.write(f'{datetime.now()} - NO INTERNET ACCESS\n')
+            
         reboot()
