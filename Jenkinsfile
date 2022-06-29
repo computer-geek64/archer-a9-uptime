@@ -33,13 +33,13 @@ pipeline {
     post {
         regression {
             withCredentials([string(credentialsId: 'ifttt-push-notification-webhook', variable: 'IFTTT_PUSH_NOTIFICATION_WEBHOOK')]) {
-                sh 'curl -X POST -H \'Content-Type: application/json\' -d \'{"value1": "Build Broke", "value2": "Jenkins build for archer-a9-uptime has failed"}\''
+                sh 'curl -X POST -H \'Content-Type: application/json\' -d \'{"value1": "Build Broke", "value2": "Jenkins build for archer-a9-uptime has failed"}\' $IFTTT_PUSH_NOTIFICATION_WEBHOOK'
             }
         }
         
         fixed {
             withCredentials([string(credentialsId: 'ifttt-push-notification-webhook', variable: 'IFTTT_PUSH_NOTIFICATION_WEBHOOK')]) {
-                sh 'curl -X POST -H \'Content-Type: application/json\' -d \'{"value1": "Build Fixed", "value2": "Jenkins build for archer-a9-uptime was successful"}\''
+                sh 'curl -X POST -H \'Content-Type: application/json\' -d \'{"value1": "Build Fixed", "value2": "Jenkins build for archer-a9-uptime was successful"}\' $IFTTT_PUSH_NOTIFICATION_WEBHOOK'
             }
         }
         
