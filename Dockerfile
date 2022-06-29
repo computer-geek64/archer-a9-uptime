@@ -2,7 +2,7 @@
 
 FROM python:3.10
 
-RUN apt-get update
+RUN apt-get update --fix-missing
 RUN apt-get install -y firefox-esr iputils-ping
 
 WORKDIR /code
