@@ -6,7 +6,7 @@ pipeline {
     }
     
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
                 withCredentials([string(credentialsId: 'archer-a9-router-web-password', variable: 'ARCHER_A9_ROUTER_WEB_PASSWORD')]) {
                     sh 'docker build -t archer-a9-uptime --build-arg router_password=$ARCHER_A9_ROUTER_WEB_PASSWORD .'
@@ -16,13 +16,13 @@ pipeline {
             }
         }
         
-        stage('test') {
+        stage('Test') {
             steps {
                 echo 'Run tests here'
             }
         }
         
-        stage('deploy') {
+        stage('Deploy') {
             when {
                 branch pattern: '(^master$|^main$|stable|release)',
                 comparator: 'REGEXP'
