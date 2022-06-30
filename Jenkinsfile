@@ -24,7 +24,7 @@ pipeline {
         
         stage('deploy') {
             when {
-                branch pattern: '(^master$|^main$|stable|release)'
+                branch pattern: '(^master$|^main$|stable|release)',
                 comparator: 'REGEXP'
             }
             
