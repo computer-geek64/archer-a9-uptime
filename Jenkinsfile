@@ -23,6 +23,11 @@ pipeline {
         }
         
         stage('deploy') {
+            when {
+                branch pattern: '(^master$|^main$|stable|release)'
+                comparator: 'REGEXP'
+            }
+            
             steps {
                 echo 'Deploy here'
                 sh 'docker run --network=host -v /var/log/archer-a9-uptime:/data --name archer-a9-uptime --rm archer-a9-uptime'
@@ -33,13 +38,13 @@ pipeline {
     post {
         regression {
             withCredentials([string(credentialsId: 'ifttt-push-notification-webhook', variable: 'IFTTT_PUSH_NOTIFICATION_WEBHOOK')]) {
-                sh 'curl -X POST -H \'Content-Type: application/json\' -d \'{"value1": "Build Broke", "value2": "Jenkins build for archer-a9-uptime has failed"}\' $IFTTT_PUSH_NOTIFICATION_WEBHOOK'
+                sh 'curl -X POST -H \'Content-Type: application/json\' -d \'{"value1": "Jenkins Build Broke", "value2": "Branch ' + env.BRANCH_NAME + ' of ' + env.JOB_NAME + ' has failed"}\' ' + env.IFTTT_PUSH_NOTIFICATION_WEBHOOK
             }
         }
         
         fixed {
             withCredentials([string(credentialsId: 'ifttt-push-notification-webhook', variable: 'IFTTT_PUSH_NOTIFICATION_WEBHOOK')]) {
-                sh 'curl -X POST -H \'Content-Type: application/json\' -d \'{"value1": "Build Fixed", "value2": "Jenkins build for archer-a9-uptime was successful"}\' $IFTTT_PUSH_NOTIFICATION_WEBHOOK'
+                sh 'curl -X POST -H \'Content-Type: application/json\' -d \'{"value1": "Jenkins Build Fixed", "value2": "Branch ' + env.BRANCH_NAME + ' of ' + env.JOB_NAME + ' was successful"}\' ' + env.IFTTT_PUSH_NOTIFICATION_WEBHOOK
             }
         }
         
