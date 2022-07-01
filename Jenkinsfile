@@ -18,7 +18,8 @@ pipeline {
         
         stage('Test') {
             steps {
-                sh 'docker run --network=host -v /var/log/archer-a9-uptime:/data --entrypoint pytest --name archer-a9-uptime-test --rm archer-a9-uptime test'
+                sh 'docker build -t archer-a9-uptime-test test'
+                sh 'docker run --network=host -v /var/log/archer-a9-uptime:/data --name archer-a9-uptime-test --rm archer-a9-uptime-test'
             }
         }
         
