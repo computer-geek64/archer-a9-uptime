@@ -19,4 +19,4 @@ COPY src .
 ARG router_password
 ENV ROUTER_PASSWORD="${router_password}"
 
-ENTRYPOINT ["./monitor.py"]
+ENTRYPOINT ["./archer_a9_uptime/monitor.py"]
