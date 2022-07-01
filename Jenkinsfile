@@ -18,7 +18,7 @@ pipeline {
         
         stage('Test') {
             steps {
-                sh 'docker build -t archer-a9-uptime-test test'
+                sh 'docker build -t archer-a9-uptime-test src/test'
                 sh 'docker run --network=host -v /var/log/archer-a9-uptime:/data --name archer-a9-uptime-test --rm archer-a9-uptime-test'
             }
         }
