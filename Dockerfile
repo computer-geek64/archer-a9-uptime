@@ -3,7 +3,7 @@
 FROM python:3.10
 
 RUN apt-get update --fix-missing
-RUN apt-get install -y firefox-esr
+RUN apt-get install -y firefox-esr iputils-ping
 
 WORKDIR /code
 RUN wget -q https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz
